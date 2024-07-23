@@ -1,6 +1,6 @@
 //var url = "https://8dc3-61-230-139-125.ngrok-free.app";
 var url = "https://localhost:7264";
-var fronturl = "https://alan-ddddd.github.io/AG_F/Back/html";
+var fronturl = "https://alan-ddddd.github.io/Wiwynn/html";
 var datalist;
 var ddllist;
 var curruntuser;
