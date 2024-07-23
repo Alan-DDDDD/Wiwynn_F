@@ -198,9 +198,9 @@ $(`#DetailList`).on(`click`,'tr',function(){
   let tds = tr.find("td")
   $(`#CID`).val(tds[0].innerHTML);
   $(`#CNM`).val(tds[1].innerHTML);
-  !tds[2].innerHTML ? "":$(`#CTYPE option`).removeAttr("selected").filter(`[value=${tds[2].innerHTML}]`).attr("selected",true);
-  !tds[3].innerHTML ? "":$(`#CDDL option`).removeAttr("selected").filter(`[value=${tds[3].innerHTML}]`).attr("selected",true);
-  !tds[4].innerHTML ? "":$(`#REFVALTYPE option`).removeAttr("selected").filter(`[value=${tds[4].innerHTML || ""}]`).attr("selected",true);
+  !tds[2].innerHTML ? $(`#CTYPE option`).removeAttr("selected"):$(`#CTYPE option`).removeAttr("selected").filter(`[value=${tds[2].innerHTML}]`).attr("selected",true);
+  !tds[3].innerHTML ? $(`#CDDL option`).removeAttr("selected"):$(`#CDDL option`).removeAttr("selected").filter(`[value=${tds[3].innerHTML}]`).attr("selected",true);
+  !tds[4].innerHTML ? $(`#REFVALTYPE option`).removeAttr("selected"):$(`#REFVALTYPE option`).removeAttr("selected").filter(`[value=${tds[4].innerHTML || ""}]`).attr("selected",true);
   $(`#CFUNC`).val(tds[5].innerHTML);
   $(`#InvalidDt`).val(tds[6].innerHTML.substring(0,10));
   $(`#CTYPE`).change();
