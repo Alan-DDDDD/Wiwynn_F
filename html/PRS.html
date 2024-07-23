@@ -1,0 +1,36 @@
+<div class="btn-group mb-2">
+  <button type="button" class="btn btn-primary" id="add">Add</button>
+  <button type="button" class="btn btn-primary" id="edit">Edit</button>
+  <button type="button" class="btn btn-primary" id="save">Save</button>
+</div>
+<div class="card mb-2">
+  <div class="divider text-start px-3 my-1" id="qBar" style="cursor:pointer">
+    <div class="divider-text">
+      <h6>Power Rail List</h6>
+    </div>
+  </div>
+  <div class=" p-2 card-body" id="qArea">
+    <label for="columnid" class="form-label-sm">Power Rail</label>
+    <input type="text" id="qSearch" class="form-control-sm universal"/>
+    <div class="table-responsive text-nowrap" style="max-height: 300px;overflow-y: scroll;">
+      <table class="table">
+        <thead style="position: sticky;top: 0;z-index: 1;background-color: white;">
+          <tr>
+            <th>Power Rail</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0" id="formlist">
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="card mb-2">
+  <div class="divider text-start px-3 my-1" id="eBar" style="cursor:pointer">
+    <div class="divider-text">
+      <h6>Power Rail Specification</h6>
+    </div>
+  </div>
+  <div class="p-3 card-body pt-1" id="eArea">
+  </div>
+</div>

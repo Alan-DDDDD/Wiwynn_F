@@ -1,0 +1,152 @@
+<div class="btn-group mb-2">
+  <button type="button" class="btn btn-primary" id="addform">新增</button>
+  <button type="button" class="btn btn-primary" id="saveform">儲存</button>
+</div>
+<div class="card mb-2">
+  <div class="divider text-start px-3 my-1" id="qBar" style="cursor:pointer">
+    <div class="divider-text">
+      <h6>表單列表</h6>
+    </div>
+  </div>
+  <div class=" p-3 card-body" id="qArea">
+    <div class="table-responsive text-nowrap" style="max-height: 300px;overflow-y: scroll;">
+      <table class="table">
+        <thead style="position: sticky;top: 0;z-index: 1;background-color: white;">
+          <tr>
+            <th>表單編號</th>
+            <th>表單名稱</th>
+            <th>失效日</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0" id="formlist">
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="card mb-3" id="ePanel">
+  <div class="divider text-start px-3 my-1" id="eBar" style="cursor:pointer">
+    <div class="divider-text">
+      <h6>表單內容</h6>
+    </div>
+  </div>
+  <div class="btn-group" style="padding: 0 1.5rem;">
+    <button type="button" class="btn btn-primary" id="addColumn" style="max-width: 5rem;"  data-bs-toggle="modal" data-bs-target="#modalCenter">新增欄位</button>
+  </div>
+  <div class=" p-3 card-body" id="eArea">
+    <h4 id="eTital" class="mb-2"></h4>
+    <div id="addformArea" class="col-3" hidden>
+      表單ID: <input type="text" class="form-control col-3" id="formid"/>
+      表單名稱 :<input type="text" class="form-control col-3" id="formname"/>
+    </div>
+    <div id="columnList">
+    </div>
+  </div>
+</div>
+<!-- Form's Modal -->
+<div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCenterTitle">新增欄位</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow-y: scroll;">
+        
+        <div class="mb-3">
+          <label for="columnid" class="form-label">欄位ID</label>
+          <input type="text" id="columnid" class="form-control"/>
+        </div>
+        <div class="mb-3">
+          <label for="columnname" class="form-label">欄位名稱</label>
+          <input type="text" id="columnname" class="form-control"/>
+        </div>
+        <div class="mb-3">
+          <label for="columntype" class="form-label">資料型別</label>
+          <select class="form-select modelselect ddlCTP" id="columntype" aria-label="Default select example">
+            
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="columnddl" class="form-label">下拉選單資料代號</label>
+          <select class="form-select modelselect ddlDB" id="columnddl" aria-label="Default select example">
+            
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="invaliddt" class="form-label">失效日期</label>
+          <input type="date" class=" form-control" id="invaliddt"/>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          關閉
+        </button>
+        <button type="button" class="btn btn-primary" id="send" data-columnid="">儲存並帶入</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Form's Modal -->
+<div class="modal fade" id="verify" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" style="min-width: 50rem;" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCenterTitle">新增規則</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body" style="max-height: 500px;overflow-y: scroll;">
+        <div>
+          <button type="button" class="btn btn-primary" id="addV">新增規則</button>
+        </div>
+        <div id="vlist">
+          <!-- <div class="vitem" style="border-bottom:  0.125rem solid gray;">
+            <div class="d-flex">
+              <div class="col-3" style="margin: 0.25rem 0.25rem;max-width: 5rem;">
+                <label for="verifytype" class="form-label">判斷邏輯</label>
+                <select class="form-select verifytype">
+                  <option value=">">大於</option>
+                  <option value="<">小於</option>
+                  <option value=">=">大於等於</option>
+                  <option value="<=">小於等於</option>
+                  <option value="=">等於</option>
+                  <option value="!=">不等於</option>
+                </select>
+              </div>
+              <div class="col-3" style="margin: 0.25rem 0.25rem;">
+                <label for="parameter" class="form-label">判斷值</label>
+                <input type="text" class=" form-control parameter"/>
+              </div>
+              <div class="col-3" style="margin: 0.25rem 0.25rem;">
+                <label for="returnvalue" class="form-label">回傳結果</label>
+                <input type="text" class=" form-control returnvalue"/>
+              </div>
+              <div class="col-3" style="margin: 0.25rem 0.25rem;">
+                <label for="invaliddt" class="form-label">失效日期</label>
+                <input type="date" class=" form-control" id="invaliddt"/>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          關閉
+        </button>
+        <button type="button" class="btn btn-primary" id="sendV" data-columnid="">儲存並帶入</button>
+      </div>
+    </div>
+  </div>
+</div>

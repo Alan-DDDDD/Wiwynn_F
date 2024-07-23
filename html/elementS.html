@@ -1,0 +1,318 @@
+<!-- 標頭 -->
+<h4 class="fw-bold py-2 mb-2"><span class="text-muted fw-light">Setting /</span> Element's Schema</h4>
+<!-- 表單 -->
+<div class="col-lg-4 col-md-6">
+  <div class="mt-3">
+    <!-- Button trigger modal -->
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalCenterTitle">Setting Colunm</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col">
+                <label for="ELEMENTID" class="form-label  my-2 mb-0">Element ID</label>
+                <input type="text" id="ELEMENTID" class="form-control" placeholder="" disabled/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="ELEMENTNM" class="form-label  my-2 mb-0">Element Name</label>
+                <input type="text" id="ELEMENTNM" class="form-control" placeholder="" disabled/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="CID" class="form-label my-2 mb-0">Colunm ID</label>
+                <input type="text" id="CID" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="CNM" class="form-label my-2 mb-0">Colunm Name</label>
+                <input type="text" id="CNM" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="CTYPE" class="form-label my-2 mb-0">Colunm Type</label>
+                <select type="text" id="CTYPE" class="form-control ddlCTYPE" placeholder="">
+                </select>
+              </div>
+            </div>
+            <div class="row" hidden>
+              <div class="col">
+                <label for="CDDL" class="form-label my-2 mb-0">Colunm DropDownList/Table</label>
+                <div class="input-group">
+                  <select type="text" id="CDDL" class="form-control ddlunit" placeholder="">
+                  </select>
+                  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" id="tableArea">Setting table</button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="REFVALTYPE" class="form-label my-2 mb-0">Return value type</label>
+                <select type="text" id="REFVALTYPE" class="form-control ddlCTYPE" placeholder="">
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="CFUNC" class="form-label my-2 mb-0">Colunm Function</label>
+                <input type="text" id="CFUNC" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="InvalidDt" class="form-label my-2 mb-0">Invalid Date</label>
+                <input type="date" id="InvalidDt" class="form-control" placeholder=""/>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="send">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Table設定 -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">Setting</h5>
+    <ul class="nav nav-pills">
+      <li class="nav-item" data-page="referenceTable">
+        <a class="nav-link active" aria-current="page" href="#referenceTable">table data</a>
+      </li>
+      <li class="nav-item" data-page="bindColumn">
+        <a class="nav-link" href="#bindColumn">Bind column</a>
+      </li>
+    </ul>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div id="referenceTable" data-id="referenceTable" class="tab">
+      Table
+      <div class="row mb-1">
+        <div class="col-lg-6">
+          <label>ID : </label>
+          <input
+          type="text"
+          id="tableid"
+          class="form-control-sm"
+          placeholder=""
+          />
+        </div>
+        <div class="col-lg-6">
+          <label>Name : </label>
+          <input
+          type="text"
+          id="tablename"
+          class="form-control-sm"
+          placeholder=""
+          />
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-ms-6">
+          <label for="parentgroup" class="form-label">Parents group</label>
+          <select class="form-select" id="parentgroup" aria-label="Default select example">
+          </select>
+        </div>
+      </div> -->
+      <div class="divider text-start" style="margin: 0;">
+        <div class="divider-text">
+        </div>
+      </div>
+      Column
+      <div class="row">
+        <div class="col-sm-5">
+          <label for="dataid" class="form-label-sm">ID</label>
+          <input
+          type="text"
+          id="dataid"
+          class="form-control-sm"
+          placeholder=""
+          style="padding: 0;"
+          />
+        </div>
+        <div class="col-sm-5">
+          <label for="data" class="form-label-sm">Name</label>
+          <input
+          type="text"
+          id="data"
+          class="form-control-sm"
+          placeholder=""
+          style="padding: 0;"
+          />
+        </div>
+        <div class="col-sm-2">
+          <label for="" class="form-label"></label>
+          <div>
+            <button type="button" class="btn btn-icon btn-primary" id="dbtn" style="width: 1.5rem;height: 1.5rem;">
+              <span class="tf-icons bx bx-plus-medical"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="max-height: 350px;overflow-y: scroll;">
+        <table class="table" id="ddatetable">
+          <thead style="position: sticky;top: 0;z-index: 1;background-color: white;">
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="detailtbody">
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-outline-secondary"  data-bs-dismiss="offcanvas" aria-label="Close">Close</button> -->
+        <button type="button" class="btn btn-primary" id="tablesend">Save</button>
+      </div>
+    </div>
+    <div id="bindColumn" data-id="bindColumn" class="tab" hidden>
+      <div class="row">
+        <div class="col">
+          <label for="PDCID" class="form-label  my-2 mb-0">Product</label>
+          <select id="PDCID" class="form-control-sm">
+            <option value="PowerRail">Power Rail</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="PDCCID" class="form-label my-2 mb-0">Product Colunm ID</label>
+          <select id="PDCCID" class="form-control-sm">
+            <option value="Vin">Vin</option>
+            <option value="Vout">Vout</option>
+            <option value="Iouttdc">Iouttdc</option>
+            <option value="Ioutmax">Ioutmax</option>
+            <option value="Ioutocp">Ioutocp</option>
+            <option value="LoadStep">LoadStep</option>
+            <option value="SlewrateAus">SlewrateAus</option>
+            <option value="L">L</option>
+            <option value="Fsw">Fsw</option>
+            <option value="Fswn">Fswn</option>
+            <option value="Voutripple">Voutripple</option>
+            <option value="Voutovershoot">Voutovershoot</option>
+            <option value="Voutundershoot">Voutundershoot</option>
+            <option value="Effestimate">Effestimate</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="FUNC" class="form-label my-2 mb-0">Function</label>
+          <!-- <input type="text" id="FUNC" class="form-control" placeholder=""/> -->
+          <textarea id="FUNC" class="form-control" style="height: 250px;"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-outline-secondary"  data-bs-dismiss="offcanvas" aria-label="Close">Close</button> -->
+        <button type="button" class="btn btn-primary" id="bindsend">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="btn-group mb-2">
+  <button type="button" class="btn btn-primary" id="add">Add</button>
+  <button type="button" class="btn btn-primary" id="save">Save</button>
+</div> -->
+<div class="card mb-2">
+  <div class="divider text-start px-3 my-1" id="qBar" style="cursor:pointer">
+    <div class="divider-text">
+      <h6>Elements List</h6>
+    </div>
+  </div>
+  <div class=" p-2 card-body" id="qArea">
+    <div class="table-responsive text-nowrap" style="max-height: 400px;overflow-y: scroll;">
+      <table class="table">
+        <thead style="position: sticky;top: 0;z-index: 1;background-color: white;">
+          <tr>
+            <th><i class='bx bx-plus-medical'style="cursor:pointer" id="addNew"></i>Element Name</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0" id="formlist">
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="card mb-2">
+  <div class="divider text-start px-3 my-1" id="eBar" style="cursor:pointer">
+    <div class="divider-text">
+      <h6>Element's Schema</h6>
+    </div>
+  </div>
+  <div class="p-3 card-body pt-1" id="eArea">
+    <div class="card-body p-1">
+      <!-- <div class="btn-group mb-2">
+        <button type="button" class="btn btn-primary" id="eAreaedit">Edit</button>
+        <button type="button" class="btn btn-primary" id="eAreasave">Save</button>
+      </div> -->
+      <!-- <div class="divider text-start px-3 my-1" id="MainSchemaBar" style="cursor:pointer">
+        <div class="divider-text">
+          <div class="row">
+            <div class="col px-1 ps-3" style="display: flex;justify-content: center;">
+              <h6>Main Schema</h6>
+            </div>
+            <div class="col">
+              <button type="button" class="btn btn-primary px-1" id="eAreaedit" style="padding: 0.1rem 0.25rem;">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="p-2 card-body pt-1" id="MainSchemaArea">
+        <div class="row">
+          <div class="col">
+            <label for="elementId" class="form-label-sm">Element's ID</label><br/>
+            <input type="text" id="elementId" class="form-control-sm universal"/>
+          </div>
+          <div class="col">
+            <label for="elementName" class="form-label-sm">Element's Name</label><br/>
+            <input type="text" id="elementName" class="form-control-sm universal"/>
+          </div>
+          <div class="col"></div>
+          <div class="col"></div>
+        </div>
+        <div class="table-responsive text-nowrap" style="max-height: 400px;overflow-y: scroll;">
+          <table class="table">
+            <thead style="position: sticky;top: 0;z-index: 1;background-color: white;">
+              <tr>
+                <th><i class='bx bx-plus-medical'style="cursor:pointer" data-bs-toggle="modal"
+                  data-bs-target="#modalCenter" id="schema"></i>Column Id</th>
+                <th>Column Name</th>
+                <th>Column Type</th>
+                <th>Drop Down List Data</th>
+                <th>Return Value Type</th>
+                <th>Column Function</th>
+                <th>Invalid Date</th>
+              </tr>
+              
+            </thead>
+            <tbody class="table-border-bottom-0" id="DetailList">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

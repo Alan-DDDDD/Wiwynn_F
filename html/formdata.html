@@ -1,0 +1,53 @@
+<div class="btn-group mb-2">
+  <button type="button" class="btn btn-primary" id="add">新增</button>
+  <button type="button" class="btn btn-primary" id="save">儲存</button>
+</div>
+<div class="card mb-2">
+  <div class="divider text-start px-3 my-1" id="qBar" style="cursor:pointer">
+    <div class="divider-text">
+      <h6>選擇表單</h6>
+    </div>
+  </div>
+  <div class=" p-3 card-body" id="qArea">
+    <div class="table-responsive text-nowrap" style="max-height: 300px;overflow-y: scroll;">
+      <label for="qform" class="form-label">表單</label>
+          <select class="form-select modelselect ddlform" id="qform" aria-label="Default select example">
+            
+          </select>
+    </div>
+  </div>
+</div>
+<div class="card mb-2">
+  <div class="divider text-start px-3 my-1" id="qBar1" style="cursor:pointer">
+    <div class="divider-text">
+      <h6>選擇資料</h6>
+    </div>
+  </div>
+  <div class=" p-3 card-body" id="qArea1">
+    <div class="table-responsive text-nowrap" style="max-height: 300px;overflow-y: scroll;">
+      <label for="qform1" class="form-label">資料選單</label>
+          <select class="form-select modelselect ddlform" id="qform1" aria-label="Default select example">
+            
+          </select>
+    </div>
+  </div>
+</div>
+<div class="card mb-3" id="ePanel">
+  <div class="divider text-start px-3 my-1" id="eBar" style="cursor:pointer">
+    <div class="divider-text">
+      <h6>表單內容</h6>
+    </div>
+  </div>
+  <div class=" p-3 card-body" id="eArea">
+    <div class="btn-group" style="padding: 0 1.5rem;">
+      <button type="button" class="btn btn-primary" id="report" style="max-width: 5rem;">取得報告</button>
+    </div>
+    <h4 id="eTital" class="mb-2"></h4>
+    <div id="addformArea" class="col-3" hidden>
+      表單ID: <input type="text" class="form-control col-3" id="formid"/>
+      表單名稱 :<input type="text" class="form-control col-3" id="formname"/>
+    </div>
+    <div id="columnList">
+    </div>
+  </div>
+</div>
