@@ -1,8 +1,12 @@
 
 $(function getVrSolution(){
-    getA("SF","GSF").then(x=>{
-      db=datalist;
-      BindList();
+    getA("PowerRail","GSF").then(x=>{
+      if(x){
+        db=datalist;
+        BindList();
+      }else{
+        alert(msg);
+      }
     })
 })
 $(function(){
@@ -80,7 +84,6 @@ function Save(Area){
         SlewrateAus:$(`#SlewrateAus`).val(),
         L:$(`#L`).val(),
         Fsw:$(`#Fsw`).val(),
-        Fswn:$(`#Fswn`).val(),
         Voutripple:$(`#Voutripple`).val(),
         Voutovershoot:$(`#Voutovershoot`).val(),
         Voutundershoot:$(`#Voutundershoot`).val(),
@@ -88,7 +91,7 @@ function Save(Area){
       }
       c = "SF"
       a = "ISF"
-      postD("SF",$(`#PowerRailI`).val() ? "ISF":"USF",p).then((x)=>{
+      postD("PowerRail",$(`#PowerRailI`).val() ? "ISF":"USF",p).then((x)=>{
         cngdb("sf",data);
         let p ={
           Id:$(`#Id`).val(),
@@ -195,12 +198,6 @@ function BindEArea(vr,sf){
               </div>
               <div class="row">
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">FSW*N</label><br/>
-                  <label for="columnid" class="form-label VAL">${!sf? "":sf.Fswn}</label>
-                  <input type="text" id="Fswn" class="form-control-sm universal" hidden/>
-                  <label for="columnid" class="form-label-sm"> KHz</label>
-                </div>
-                <div class="col">
                   <label for="columnid" class="form-label-sm">VOUT_Ripple</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Voutripple}</label>
                   <input type="text" id="Voutripple" class="form-control-sm universal" hidden/>
@@ -218,18 +215,13 @@ function BindEArea(vr,sf){
                   <input type="text" id="Voutundershoot" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> mV</label>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col">
                   <label for="columnid" class="form-label-sm">EFF.estimate</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Effestimate}</label>
                   <input type="text" id="Effestimate" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> %</label>
                 </div>
-                <div class="col"></div>
-                <div class="col"></div>
-                <div class="col"></div>
-      </div>`);
+              </div>`);
   $(`#eAreaedit`).removeAttr("disabled");
   $(`#eAreasave`).attr("disabled",true);
   let prs = $(`#PowerRail`);

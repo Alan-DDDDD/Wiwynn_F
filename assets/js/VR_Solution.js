@@ -75,21 +75,35 @@ $(`#eArea`).on('click',`#eAreasave`,function(){
 $(`#eArea`).on(`change`,`#PowerRail`,function(){
   let PowerRailId = $(`#PowerRail option:selected`).val();
   let sf = db.sf.filter(x=>x.PowerRailId == PowerRailId)[0];
-  console.log(sf);
-  $(`#Effestimate`).val(sf["Effestimate"]);
-  $(`#Fsw`).val(sf["Fsw"]);
-  $(`#Fswn`).val(sf["Fswn"]);
-  $(`#Ioutmax`).val(sf["Ioutmax"]);
-  $(`#Ioutocp`).val(sf["Ioutocp"]);
-  $(`#Iouttdc`).val(sf["Iouttdc"]);
-  $(`#L`).val(sf["L"]);
-  $(`#LoadStep`).val(sf["LoadStep"]);
-  $(`#SlewrateAus`).val(sf["SlewrateAus"]);
-  $(`#Vin`).val(sf["Vin"]);
-  $(`#Vout`).val(sf["Vout"]);
-  $(`#Voutovershoot`).val(sf["Voutovershoot"]);
-  $(`#Voutripple`).val(sf["Voutripple"]);
-  $(`#Voutundershoot`).val(sf["Voutundershoot"]);
+  $(`#Effestimate`).val(sf["Effestimate"]).prev('.VAL').html(sf["Effestimate"]);
+  $(`#Fsw`).val(sf["Fsw"]).prev('.VAL').html(sf["Fsw"]);
+  $(`#Ioutmax`).val(sf["Ioutmax"]).prev('.VAL').html(sf["Ioutmax"]);
+  $(`#Ioutocp`).val(sf["Ioutocp"]).prev('.VAL').html(sf["Ioutocp"]);
+  $(`#Iouttdc`).val(sf["Iouttdc"]).prev('.VAL').html(sf["Iouttdc"]);
+  $(`#L`).val(sf["L"]).prev('.VAL').html(sf["L"]);
+  $(`#LoadStep`).val(sf["LoadStep"]).prev('.VAL').html(sf["LoadStep"]);
+  $(`#SlewrateAus`).val(sf["SlewrateAus"]).prev('.VAL').html(sf["SlewrateAus"]);
+  $(`#Vin`).val(sf["Vin"]).prev('.VAL').html(sf["Vin"]);
+  $(`#Vout`).val(sf["Vout"]).prev('.VAL').html(sf["Vout"]);
+  $(`#Voutovershoot`).val(sf["Voutovershoot"]).prev('.VAL').html(sf["Voutovershoot"]);
+  $(`#Voutripple`).val(sf["Voutripple"]).prev('.VAL').html(sf["Voutripple"]);
+  $(`#Voutundershoot`).val(sf["Voutundershoot"]).prev('.VAL').html(sf["Voutundershoot"]);
+});
+//驗證Phase如果是1的動作
+$(`#eArea`).on(`change`,`#VrSolution1,#PowerStage,#Phase`,function(){
+  let vs = $(`#VrSolution1`);
+  let ps = $(`#PowerStage`);
+  let phase = $(`#Phase`);
+  if(phase.val()){
+    if(phase.val() == 1){
+      ps.val(vs.val());
+    }else if(vs.val()==ps.val()){
+      ps.val("");
+    }
+  }
+  if(vs.val()==ps.val()){
+    phase.val(1);
+  }
 });
 $(`#add`).on('click',function(){
   BindEArea(null,null);
@@ -103,35 +117,47 @@ $(`#eArea`).on('click','#turnPage',function(){
 });
 //點擊列表
 $(`#formlist`).on('click','tr',function(){
-    let id = $($(this).find('td')[0]).text();
-    let PR = $($(this).find('td')[1]).text();
-    let vr = db.vr.filter(x=>x.Id == id)[0];
-    let sf = db.sf.filter(x=>x.PowerRailId == PR)[0];
-    BindEArea(vr,sf);
+  let PR = $($(this).find('td')[0]).text();
+  BindDetailList(db.vr.filter(x=>x.PowerRailId == PR));
 });
+$(`#formDetaillist`).on('click','tr',function(){
+  let id = $($(this).find('td')[0]).text();
+  let PR = $($(this).find('td')[1]).text();
+  let mfr = $($(this).find('td')[2]).text();
+  let ps = $($(this).find('td')[3]).text();
+  let phase = $($(this).find('td')[4]).text();
+  let vr = db.vr.filter(x=>x.Id == id)[0];
+  let sf = db.sf.filter(x=>x.PowerRailId == PR)[0];
+  let cp = db.cp.filter(x=>x.Vrsolution == id)[0];
+  BindEArea(vr,sf,cp);
+  document.getElementById("toeBar").click();
+});
+
 $(`#eleid`).on(`change`,function(){
   changeEle($(this).val()); 
 });
+
+//Element Area
 $(`#EleAreaadd`).on(`click`,function(){
   let eleid = $(`#eleid option:selected`).val();
   let did = $(`#did option:selected`).val();
   let prid = $(`#PowerRail option:selected`).val();
+  let id = $(`#Id`).val();
   if(prid == "請選擇"){
     prid = $(`#PowerRail`).prev().html();
   }
-  getD("EleData","getResult",`prid=${prid}&did=${did}`).then(x=>{
+  getD("EleData","getResult",`prid=${prid}&did=${did}&id=${id}`).then(x=>{
     if(x){
       let EA = $(`#ElementArea`);
-      EA.append(`<hr class="my-2"/>
+      let obj = `<div class="rtneleData"><hr class="my-2"/>
                     <div class="row">
                       <div class="col"></div>
                       <div class="col"></div>
                       <div class="col"></div>
                       <div class="col" style="text-align: end;">
-                        <button type="button" class="btn btn-danger">delete</button>
+                        <button type="button" class="btn btn-danger deleleData">delete</button>
                       </div>
-                    </div>`);
-      let obj = ``;
+                    </div>`;
       if(data.length % 4 != 0){
         for(let i = 0;i<4 - data.length % 4 + 1;i++){
           data.push(null);
@@ -153,11 +179,17 @@ $(`#EleAreaadd`).on(`click`,function(){
           obj+=`</div>`;
         }
       })
-      EA.append(obj);
+      EA.append(obj+`</div>`);
     }
   })
 
 })
+
+$(`#ElementArea`).on(`click`,`.deleleData`,function(){
+  let parent = $(this).parents(`.rtneleData`);
+  console.log(parent);
+  parent.remove();
+});
 
 //function
 function Save(Area){
@@ -167,21 +199,29 @@ function Save(Area){
   switch(Area){
     case "E":
       let p ={
-        Id:$(`#Id`).val() || 0 ,
-        PowerRail:$(`#PowerRail option:selected`).val(),
-        VrSolution1:$(`#VrSolution1`).val(),
-        Qpn:$(`#Qpn`).val(),
+        PowerRailId : $("#PowerRail option:selected").val(),
+        MfrPn:$(`#VrSolution1`).val(),
         PowerStage:$(`#PowerStage`).val(),
         Phase:$(`#Phase`).val()
       };
-      postD("VRSolution","IVR",p).then((x)=>{
-        cngdb("vr",data);
-        let vr = db.vr.filter(x=>x.Id == data.Id)[0];
-        let sf = db.sf.filter(x=>x.PowerRailId == $(`#PowerRail option:selected`).val())[0];
-        BindEArea(vr,sf);
-        $(`#turnPage`).attr('hidden',true);
-        BindList();
-      });
+      if(p.PowerRailId && p.MfrPn && p.PowerStage && p.Phase){
+        let id = $(`#Id`).val();
+        if(id){
+          let vr = db.vr.filter(x=>x.Id == db.cp.filter(x=>x.Id == id)[0].Vrsolution)[0]
+          if(!(vr.PowerRailId == p.PowerRailId && vr.MfrPn ==p.MfrPn && vr.PowerStage == p.PowerStage && vr.Phase == p.Phase)){
+            id = 0;
+          }
+        }
+        postD("VRSolution","IVR",p,`Id=${id || 0}`).then((x)=>{
+          cngdb("vr",data);
+          let vr = db.vr.filter(x=>x.PowerRailId == data.vr.PowerRailId);
+          let sf = db.sf.filter(x=>x.PowerRailId == $(`#PowerRail option:selected`).val())[0];
+          BindEArea(data.vr,sf,data.cp);
+          $(`#turnPage`).attr('hidden',true);
+          BindList();
+          BindDetailList(vr);
+        });
+      }
       break;
   }
 }
@@ -189,84 +229,95 @@ function Save(Area){
 function BindList(){
   let list = $(`#formlist`);
   list.html("");
-  $.each(db.vr,(i,d)=>{
-      list.append(`<tr  style="cursor:pointer">
-                      <td hidden>${d.Id}</td>
-                      <td>${d.PowerRail}</td>
-                      <td>${d.VrSolution1}</td>
-                      <td>${d.Qpn}</td>
-                      <td>${d.PowerStage}</td>
-                  </tr>`);
+  let vr = uniqueArray(db.vr.map(x=>x.PowerRailId));
+  if(vr.length == 0){
+    alert("No Datas");
+  }else{
+    $.each(vr,(i,d)=>{
+      list.append(`<tr style="cursor:pointer">
+        <td>${d}</td>
+        </tr>`);
+      });
+  }
+}
+function BindDetailList(vrList){
+  let detailList = $(`#formDetaillist`);
+  detailList.empty();
+  $.each(vrList,(i,d)=>{
+    detailList.append(`<tr style="cursor:pointer">
+                          <td hidden>${d.Id}</td>
+                          <td>${d.PowerRailId}</td>
+                          <td>${d.MfrPn}</td>
+                          <td>${d.PowerStage}</td>
+                          <td>${d.Phase}</td>
+                      </tr>`);
   });
 }
 
-function BindEArea(vr,sf){
+function BindEArea(vr,sf,cp){
   $(`#eArea`).html(`<div class="card-body p-1">
     <div class="btn-group mb-2">
       <button type="button" class="btn btn-primary" id="eAreaedit">Edit</button>
       <button type="button" class="btn btn-primary" id="eAreasave">Save</button>
     </div>
   </div><div class="row">
-                <input type="text" id="Id" class="form-control-sm insert" value="${!vr? "":vr.Id}" hidden/>
+                <input type="text" id="Id" class="form-control-sm insert" value="${!cp? "":cp.Id}" hidden/>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">PowerRail</label><br/>
-                  <label for="columnid" class="form-label VAL">${!vr? "":vr.PowerRail}</label>
+                  <label for="columnid" class="form-label VAL">${!sf? "":sf.PowerRailId}</label>
                   <select class="form-control-sm universal" id="PowerRail" hidden>
                   </select><i class='bx bx-plus-medical' id="turnPage" style="cursor:pointer" data-page="PRS" hidden></i>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">VR_Solution</label><br/>
-                  <label for="columnid" class="form-label VAL">${!vr? "":vr.VrSolution1}</label>
+                  <label for="columnid" class="form-label VAL">${!vr? "":vr.MfrPn}</label>
                   <input type="text" id="VrSolution1" class="form-control-sm universal" hidden/>
-                </div>
-                <div class="col">
-                  <label for="columnid" class="form-label-sm">QPN</label><br/>
-                  <label for="columnid" class="form-label VAL">${!vr? "":vr.Qpn}</label>
-                  <input type="text" id="Qpn" class="form-control-sm universal" hidden/>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">Power Stage</label><br/>
                   <label for="columnid" class="form-label VAL">${!vr? "":vr.PowerStage}</label>
                   <input type="text" id="PowerStage" class="form-control-sm universal" hidden/>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col">
                   <label for="columnid" class="form-label-sm">Phase</label><br/>
                   <label for="columnid" class="form-label VAL">${!vr? "":vr.Phase}</label>
                   <input type="text" id="Phase" class="form-control-sm universal" hidden/>
                 </div>
+              </div>
+              <hr/>
+              <div class="row">
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">VIN</label><br/>
+                  <label for="columnid" class="form-label-sm">VIN <small style="color:red"> (VOUT*50%VOUT*50%VOUT*50%)</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Vin}</label>
-                  <input type="text" id="Vin" class="form-control-sm universal" hidden/>
+                  <input type="text" id="Vin" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> V</label>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">VOUT</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Vout}</label>
-                  <input type="text" id="Vout" class="form-control-sm universal" hidden/>
+                  <input type="text" id="Vout" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> V</label>
                 </div>
+                <div class="col"></div>
                 <div class="col"></div>
               </div>
               <div class="row">
                 <div class="col">
                   <label for="columnid" class="form-label-sm">IOUT_TDC</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Iouttdc}</label>
-                  <input type="text" id="Iouttdc" class="form-control-sm universal" hidden/>
+                  <input type="text" id="Iouttdc" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">IOUT_MAX</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Ioutmax}</label>
-                  <input type="text" id="Ioutmax" class="form-control-sm universal" hidden/>
+                  <input type="text" id="Ioutmax" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">IOUT_OCP</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Ioutocp}</label>
-                  <input type="text" id="Ioutocp" class="form-control-sm universal" hidden/>
+                  <input type="text" id="Ioutocp" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col"></div>
@@ -275,99 +326,92 @@ function BindEArea(vr,sf){
                 <div class="col">
                   <label for="columnid" class="form-label-sm">LOAD_STEP</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.LoadStep}</label>
-                  <input type="text" id="LoadStep" class="form-control-sm universal" hidden/>
+                  <input type="text" id="LoadStep" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">Slew_rate(A/us)</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.SlewrateAus}</label>
-                  <input type="text" id="SlewrateAus" class="form-control-sm universal" hidden/>
+                  <input type="text" id="SlewrateAus" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">L</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.L}</label>
-                  <input type="text" id="L" class="form-control-sm universal" hidden/>
+                  <input type="text" id="L" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> uH</label>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">Fsw</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Fsw}</label>
-                  <input type="text" id="Fsw" class="form-control-sm universal" hidden/>
+                  <input type="text" id="Fsw" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> KHz</label>
                 </div>
               </div>
               <div class="row">
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">FSW*N</label><br/>
-                  <label for="columnid" class="form-label VAL">${!sf? "":sf.Fswn}</label>
-                  <input type="text" id="Fswn" class="form-control-sm universal" hidden/>
-                  <label for="columnid" class="form-label-sm"> KHz</label>
-                </div>
-                <div class="col">
                   <label for="columnid" class="form-label-sm">VOUT_Ripple</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Voutripple}</label>
-                  <input type="text" id="Voutripple" class="form-control-sm universal" hidden/>
+                  <input type="text" id="Voutripple" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> mV</label>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">VOUT_Overshoot</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Voutovershoot}</label>
-                  <input type="text" id="Voutovershoot" class="form-control-sm universal" hidden/>
+                  <input type="text" id="Voutovershoot" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> mV</label>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">VOUT_Undershoot</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Voutundershoot}</label>
-                  <input type="text" id="Voutundershoot" class="form-control-sm universal" hidden/>
+                  <input type="text" id="Voutundershoot" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> mV</label>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col">
                   <label for="columnid" class="form-label-sm">EFF.estimate</label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Effestimate}</label>
-                  <input type="text" id="Effestimate" class="form-control-sm universal" hidden/>
+                  <input type="text" id="Effestimate" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> %</label>
                 </div>
-                <div class="col"></div>
-                <div class="col"></div>
-                <div class="col"></div>
       </div>`);
   $(`#eArea2`).html(`<div class="row">
                 <div class="col">
                   <label for="columnid" class="form-label-sm">Duty</label><br/>
-                  <label for="columnid" class="form-label">${!vr? "":vr.Duty.numberFormat(2,".",",")}</label>
+                  <label for="columnid" class="form-label">${!cp? "":cp.Duty.numberFormat(2,".",",")}</label>
                   <label for="columnid" class="form-label-sm"> %</label>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">Output_ΔIL_total</label><br/>
-                  <label for="columnid" class="form-label">${!vr? "":vr.OutputDeltaIlTotal.numberFormat(2,".",",")}</label>
+                  <label for="columnid" class="form-label">${!cp? "":cp.OutputDeltaIlTotal.numberFormat(2,".",",")}</label>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">Output_ΔIL_per_phase</label><br/>
-                  <label for="columnid" class="form-label">${!vr? "":vr.OutputDeltaIlPerPhase.numberFormat(2,".",",")}</label>
+                  <label for="columnid" class="form-label">${!cp? "":cp.OutputDeltaIlPerPhase.numberFormat(2,".",",")}</label>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">KIND</label><br/>
-                  <label for="columnid" class="form-label">${!vr? "":vr.Kind.numberFormat(2,".",",")}</label>
+                  <label for="columnid" class="form-label">${!cp? "":cp.Kind.numberFormat(2,".",",")}</label>
                   <label for="columnid" class="form-label-sm"> %</label>
                 </div>
               </div>
               <div class="row">
                 <div class="col">
                   <label for="columnid" class="form-label-sm">IMAX+</label><br/>
-                  <label for="columnid" class="form-label">${!vr? "":vr.Imax.numberFormat(2,".",",")}</label>
+                  <label for="columnid" class="form-label">${!cp? "":cp.Imax.numberFormat(2,".",",")}</label>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
                   <label for="columnid" class="form-label-sm">IOCP+</label><br/>
-                  <label for="columnid" class="form-label">${!vr? "":vr.Iocp.numberFormat(2,".",",")}</label>
+                  <label for="columnid" class="form-label">${!cp? "":cp.Iocp.numberFormat(2,".",",")}</label>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
-                <div class="col"></div>
+                <div class="col">
+                  <label for="columnid" class="form-label-sm">Fsw*N</label><br/>
+                  <label for="columnid" class="form-label">${!cp? "":cp.Fswn.numberFormat(2,".",",")}</label>
+                  <label for="columnid" class="form-label-sm"> kHz</label>
+                </div>
                 <div class="col"></div>
       </div>`);
   $(`#eAreaedit`).removeAttr("disabled");
@@ -377,8 +421,8 @@ function BindEArea(vr,sf){
   $.each(db.sf,(i,d)=>{
       prs.append(`<option value="${d.PowerRailId}">${d.PowerRailId}</option>`)
   });
-  if(returnData || vr){
-    $(`#PowerRail option`).removeAttr("selected").filter(`[value=${returnData}]`).attr('selected',true);
+  if(returnData || cp){
+    $(`#PowerRail option`).removeAttr("selected").filter(`[value=${returnData || cp.PowerRailId}]`).attr('selected',true);
   }
 }
 
@@ -394,13 +438,24 @@ function cngdb(item,data){
     case "vr":
       let c = true;
       $.each(db.vr,(i,d)=>{
-        if(d.Id == data.Id){
-          db.vr[i] = data;
+        if(d.Id == data.vr.Id){
+          db.vr[i] = data.vr;
           c = false;
         }
       })
       if(c){
-        db.vr.push(data);
+        db.vr.push(data.vr);
+        c = true;
+      }
+      $.each(db.cp,(i,d)=>{
+        if(d.Id == data.cp.Id){
+          db.cp[i] = data.cp;
+          c = false;
+        }
+      })
+      if(c){
+        db.cp.push(data.cp);
+        c = true;
       }
       break;
   }

@@ -36,6 +36,22 @@ Number.prototype.numberFormat = function(c, d, t){
      return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
 
+function onlyUnique(value, index, array) {
+  return array.indexOf(value) === index;
+}
+
+function uniqueArray( ar ) {
+  var j = {};
+
+  ar.forEach( function(v) {
+    j[v+ '::' + typeof v] = v;
+  });
+
+  return Object.keys(j).map(function(v){
+    return j[v];
+  });
+} 
+
 function d(d){
   if(d.Status){
     data = d.Data;
@@ -86,8 +102,11 @@ async function getD(c,a,p,b,l){
   }
 }
 
-async function postD(c,a,p,b,l){
+async function postD(c,a,p,g,b,l){
   let u = url + "/api/" + c + "/" + a;
+  if(g){
+    u = u + "?" + g;
+  }
   var r = await fetch(u,{
     method : "Post",
     headers : hcj,

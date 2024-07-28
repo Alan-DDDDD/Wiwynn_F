@@ -352,3 +352,33 @@ $(`#addNew`).on(`click`,function(){
   $(`#elementName`).val("");
   $(`#DetailList`).empty()
 });
+
+$(`#PDCID`).on(`change`,function(){
+  let val = $(this).val();
+  let PDCCID = $(`#PDCCID`);
+  PDCCID.empty();
+  if(val=="CP"){
+    PDCCID.append(`<option value="Duty">Duty</option>
+            <option value="Output_DeltaIL_total">Output_DeltaIL_total</option>
+            <option value="Output_DeltaIL_per phase">Output_DeltaIL_per phase</option>
+            <option value="KIND">KIND</option>
+            <option value="IMAX">IMAX</option>
+            <option value="IOCP">IOCP</option>
+            <option value="FSWN">FSWN</option>`);
+  }else{
+    PDCCID.append(`<option value="Vin">Vin</option>
+            <option value="Vout">Vout</option>
+            <option value="Iouttdc">Iouttdc</option>
+            <option value="Ioutmax">Ioutmax</option>
+            <option value="Ioutocp">Ioutocp</option>
+            <option value="LoadStep">LoadStep</option>
+            <option value="SlewrateAus">SlewrateAus</option>
+            <option value="L">L</option>
+            <option value="Fsw">Fsw</option>
+            <option value="Fswn">Fswn</option>
+            <option value="Voutripple">Voutripple</option>
+            <option value="Voutovershoot">Voutovershoot</option>
+            <option value="Voutundershoot">Voutundershoot</option>
+            <option value="Effestimate">Effestimate</option>`)
+  }
+});
