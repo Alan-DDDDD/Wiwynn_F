@@ -11,6 +11,7 @@ var data;
 var msg;
 var dataid;
 var db;
+var dbMemo;
 var turnPage;
 var returnData;
 var liffId = "2003018925-03bR6Jo3";

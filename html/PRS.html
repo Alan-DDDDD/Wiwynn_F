@@ -2,6 +2,7 @@
   <button type="button" class="btn btn-primary" id="add">Add</button>
   <button type="button" class="btn btn-primary" id="edit">Edit</button>
   <button type="button" class="btn btn-primary" id="save">Save</button>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">Memo</button>
 </div>
 <div class="card mb-2">
   <div class="divider text-start px-3 my-1" id="qBar" style="cursor:pointer">
@@ -32,5 +33,114 @@
     </div>
   </div>
   <div class="p-3 card-body pt-1" id="eArea">
+  </div>
+</div>
+<!-- 表單 -->
+<div class="col-lg-4 col-md-6">
+  <div class="mt-3">
+    <!-- Button trigger modal -->
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalCenterTitle">Power Rail Memo</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col">
+                <label for="VinMemo" class="form-label  my-2 mb-0">Vin</label>
+                <input type="text" id="VinMemo" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="VoutMemo" class="form-label  my-2 mb-0">Vout</label>
+                <input type="text" id="VoutMemo" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="IouttdcMemo" class="form-label my-2 mb-0">Iout_TDC</label>
+                <input type="text" id="IouttdcMemo" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="IoutmaxMemo" class="form-label my-2 mb-0">IOUT_MAX</label>
+                <input type="text" id="IoutmaxMemo" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="IoutocpMemo" class="form-label my-2 mb-0">IOUT_OCP</label>
+                <input type="text" id="IoutocpMemo" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="LoadStepMemo" class="form-label my-2 mb-0">LOAD_STEP</label>
+                <input type="text" id="LoadStepMemo" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="SlewrateAusMemo" class="form-label my-2 mb-0">Slew_rate(A/us)</label>
+                <input type="text" id="SlewrateAusMemo" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="LMemo" class="form-label my-2 mb-0">L</label>
+                <input type="text" id="LMemo" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="FswMemo" class="form-label my-2 mb-0">Fsw</label>
+                <input type="text" id="FswMemo" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="VoutrippleMemo" class="form-label my-2 mb-0">VOUT_Ripple</label>
+                <input type="text" id="VoutrippleMemo" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="VoutovershootMemo" class="form-label my-2 mb-0">VOUT_Overshoot</label>
+                <input type="text" id="VoutovershootMemo" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="VoutundershootMemo" class="form-label my-2 mb-0">VOUT_Undershoot</label>
+                <input type="text" id="VoutundershootMemo" class="form-control" placeholder=""/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="EffestimateMemo" class="form-label my-2 mb-0">EFF.estimate</label>
+                <input type="text" id="EffestimateMemo" class="form-control" placeholder=""/>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="send">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

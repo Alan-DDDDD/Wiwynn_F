@@ -285,7 +285,9 @@ $(`#tableArea`).on(`click`,function(){
       })
       getD("Element","getEleBindP",`eleid=${$(`#ELEMENTID`).val()}&cid=${$(`#CID`).val()}`).then(x=>{
         if(x){
-          $(`#PDCCID option`).removeAttr('selected').filter((i,x)=>$(x).val() == data[0].BindPcid).attr("selected",true)
+          $(`#PDCID option`).removeAttr(`selected`).filter((i,x)=>$(x).val()==data[0].BindPid).attr(`selected`,true);
+          $(`#PDCID`).change();
+          $(`#PDCCID option`).removeAttr('selected').filter((i,x)=>$(x).val() == data[0].BindPcid).attr("selected",true);
         }
       })
     }else{

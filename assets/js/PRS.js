@@ -2,8 +2,11 @@
 $(function getVrSolution(){
     getA("PowerRail","GSF").then(x=>{
       if(x){
-        db=datalist;
+        db=datalist.datas;
+        dbMemo = datalist.sc;
         BindList();
+        BindTable(dbMemo);
+        console.log(datalist.sc)
       }else{
         alert(msg);
       }
@@ -64,6 +67,34 @@ $(`#formlist`).on('click','tr',function(){
     $(`#edit`).removeAttr('disabled');
     $(`#save`).attr('disabled',true);
     $(`#qBar`).click();
+});
+//註解修改
+$(`#send`).on(`click`,function(){
+  p={
+    PowerRailIdMemo:1,
+    VinMemo:$(`#VinMemo`).val(),
+    VoutMemo:$(`#VoutMemo`).val(),
+    IouttdcMemo:$(`#IouttdcMemo`).val(),
+    IoutmaxMemo:$(`#IoutmaxMemo`).val(),
+    IoutocpMemo:$(`#IoutocpMemo`).val(),
+    LoadStepMemo:$(`#LoadStepMemo`).val(),
+    SlewrateAusMemo:$(`#SlewrateAusMemo`).val(),
+    LMemo:$(`#LMemo`).val(),
+    FswMemo:$(`#FswMemo`).val(),
+    VoutrippleMemo:$(`#VoutrippleMemo`).val(),
+    VoutovershootMemo:$(`#VoutovershootMemo`).val(),
+    VoutundershootMemo:$(`#VoutundershootMemo`).val(),
+    EffestimateMemo:$(`#EffestimateMemo`).val()
+  }
+  postD("PowerRail","USF",p).then((x)=>{
+    //cngdb("sf",data);
+    if(x){
+      dbMemo = data;
+      alert(x);
+    }else{
+      alert(msg);
+    }
+  }).catch(x=>alert(x))
 });
 
 //function
@@ -126,6 +157,23 @@ function BindList(){
                 </tr>`);
   });
 }
+
+function BindTable(data){
+  $(`#VinMemo`).val(data.Vin)
+  $(`#VoutMemo`).val(data.Vout)
+  $(`#IouttdcMemo`).val(data.Iouttdc)
+  $(`#IoutmaxMemo`).val(data.Ioutmax)
+  $(`#IoutocpMemo`).val(data.Ioutocp)
+  $(`#LoadStepMemo`).val(data.LoadStep)
+  $(`#SlewrateAusMemo`).val(data.SlewrateAus)
+  $(`#LMemo`).val(data.L)
+  $(`#FswMemo`).val(data.Fsw)
+  $(`#VoutrippleMemo`).val(data.Voutripple)
+  $(`#VoutovershootMemo`).val(data.Voutovershoot)
+  $(`#VoutundershootMemo`).val(data.Voutundershoot)
+  $(`#EffestimateMemo`).val(data.Effestimate)
+};
+
 function BindEArea(vr,sf){
   $(`#eArea`).html(`
               <div class="row">
@@ -136,13 +184,13 @@ function BindEArea(vr,sf){
                   <input type="text" id="PowerRailI" class="form-control-sm insert"/>`}
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">VIN</label><br/>
+                  <label for="columnid" class="form-label-sm">VIN <small style="color:red">${dbMemo.Vin ? ` (${dbMemo.Vin})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Vin}</label>
                   <input type="text" id="Vin" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> V</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">VOUT</label><br/>
+                  <label for="columnid" class="form-label-sm">VOUT <small style="color:red">${dbMemo.Vout ? ` (${dbMemo.Vout})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Vout}</label>
                   <input type="text" id="Vout" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> V</label>
@@ -151,19 +199,19 @@ function BindEArea(vr,sf){
               </div>
               <div class="row">
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">IOUT_TDC</label><br/>
+                  <label for="columnid" class="form-label-sm">IOUT_TDC <small style="color:red">${dbMemo.Iouttdc ? ` (${dbMemo.Iouttdc})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Iouttdc}</label>
                   <input type="text" id="Iouttdc" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">IOUT_MAX</label><br/>
+                  <label for="columnid" class="form-label-sm">IOUT_MAX <small style="color:red">${dbMemo.Ioutmax ? ` (${dbMemo.Ioutmax})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Ioutmax}</label>
                   <input type="text" id="Ioutmax" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">IOUT_OCP</label><br/>
+                  <label for="columnid" class="form-label-sm">IOUT_OCP <small style="color:red">${dbMemo.Ioutocp ? ` (${dbMemo.Ioutocp})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Ioutocp}</label>
                   <input type="text" id="Ioutocp" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
@@ -172,25 +220,25 @@ function BindEArea(vr,sf){
               </div>
               <div class="row">
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">LOAD_STEP</label><br/>
+                  <label for="columnid" class="form-label-sm">LOAD_STEP <small style="color:red">${dbMemo.LoadStep ? ` (${dbMemo.LoadStep})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.LoadStep}</label>
                   <input type="text" id="LoadStep" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">Slew_rate(A/us)</label><br/>
+                  <label for="columnid" class="form-label-sm">Slew_rate(A/us) <small style="color:red">${dbMemo.SlewrateAus ? ` (${dbMemo.SlewrateAus})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.SlewrateAus}</label>
                   <input type="text" id="SlewrateAus" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">L</label><br/>
+                  <label for="columnid" class="form-label-sm">L <small style="color:red">${dbMemo.L ? ` (${dbMemo.L})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.L}</label>
                   <input type="text" id="L" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> uH</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">Fsw</label><br/>
+                  <label for="columnid" class="form-label-sm">Fsw <small style="color:red">${dbMemo.Fsw ? ` (${dbMemo.Fsw})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Fsw}</label>
                   <input type="text" id="Fsw" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> KHz</label>
@@ -198,25 +246,25 @@ function BindEArea(vr,sf){
               </div>
               <div class="row">
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">VOUT_Ripple</label><br/>
+                  <label for="columnid" class="form-label-sm">VOUT_Ripple <small style="color:red">${dbMemo.Voutripple ? ` (${dbMemo.Voutripple})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Voutripple}</label>
                   <input type="text" id="Voutripple" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> mV</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">VOUT_Overshoot</label><br/>
+                  <label for="columnid" class="form-label-sm">VOUT_Overshoot <small style="color:red">${dbMemo.Voutovershoot ? ` (${dbMemo.Voutovershoot})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Voutovershoot}</label>
                   <input type="text" id="Voutovershoot" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> mV</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">VOUT_Undershoot</label><br/>
+                  <label for="columnid" class="form-label-sm">VOUT_Undershoot <small style="color:red">${dbMemo.Voutundershoot ? ` (${dbMemo.Voutundershoot})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Voutundershoot}</label>
                   <input type="text" id="Voutundershoot" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> mV</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">EFF.estimate</label><br/>
+                  <label for="columnid" class="form-label-sm">EFF.estimate <small style="color:red">${dbMemo.Effestimate ? ` (${dbMemo.Effestimate})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Effestimate}</label>
                   <input type="text" id="Effestimate" class="form-control-sm universal" hidden/>
                   <label for="columnid" class="form-label-sm"> %</label>
