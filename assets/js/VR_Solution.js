@@ -287,13 +287,13 @@ function BindEArea(vr,sf,cp){
               <hr/>
               <div class="row">
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">VIN <small style="color:red"> (VOUT*50%VOUT*50%VOUT*50%)</small></label><br/>
+                  <label for="columnid" class="form-label-sm">VIN <small style="color:red">${db.sc.Vin ? ` (${db.sc.Vin})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Vin}</label>
                   <input type="text" id="Vin" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> V</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">VOUT</label><br/>
+                  <label for="columnid" class="form-label-sm">VOUT <small style="color:red">${db.sc.Vout ? ` (${db.sc.Vout})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Vout}</label>
                   <input type="text" id="Vout" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> V</label>
@@ -303,19 +303,19 @@ function BindEArea(vr,sf,cp){
               </div>
               <div class="row">
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">IOUT_TDC</label><br/>
+                  <label for="columnid" class="form-label-sm">IOUT_TDC <small style="color:red">${db.sc.Iouttdc ? ` (${db.sc.Iouttdc})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Iouttdc}</label>
                   <input type="text" id="Iouttdc" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">IOUT_MAX</label><br/>
+                  <label for="columnid" class="form-label-sm">IOUT_MAX <small style="color:red">${db.sc.Ioutmax ? ` (${db.sc.Ioutmax})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Ioutmax}</label>
                   <input type="text" id="Ioutmax" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">IOUT_OCP</label><br/>
+                  <label for="columnid" class="form-label-sm">IOUT_OCP <small style="color:red">${db.sc.Ioutocp ? ` (${db.sc.Ioutocp})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Ioutocp}</label>
                   <input type="text" id="Ioutocp" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
@@ -324,25 +324,25 @@ function BindEArea(vr,sf,cp){
               </div>
               <div class="row">
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">LOAD_STEP</label><br/>
+                  <label for="columnid" class="form-label-sm">LOAD_STEP <small style="color:red">${db.sc.LoadStep ? ` (${db.sc.LoadStep})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.LoadStep}</label>
                   <input type="text" id="LoadStep" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">Slew_rate(A/us)</label><br/>
+                  <label for="columnid" class="form-label-sm">Slew_rate(A/us) <small style="color:red">${db.sc.SlewrateAus ? ` (${db.sc.SlewrateAus})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.SlewrateAus}</label>
                   <input type="text" id="SlewrateAus" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> A</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">L</label><br/>
+                  <label for="columnid" class="form-label-sm">L <small style="color:red">${db.sc.L ? ` (${db.sc.L})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.L}</label>
                   <input type="text" id="L" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> uH</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">Fsw</label><br/>
+                  <label for="columnid" class="form-label-sm">Fsw <small style="color:red">${db.sc.Fsw ? ` (${db.sc.Fsw})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Fsw}</label>
                   <input type="text" id="Fsw" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> KHz</label>
@@ -350,25 +350,25 @@ function BindEArea(vr,sf,cp){
               </div>
               <div class="row">
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">VOUT_Ripple</label><br/>
+                  <label for="columnid" class="form-label-sm">VOUT_Ripple <small style="color:red">${db.sc.Voutripple ? ` (${db.sc.Voutripple})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Voutripple}</label>
                   <input type="text" id="Voutripple" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> mV</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">VOUT_Overshoot</label><br/>
+                  <label for="columnid" class="form-label-sm">VOUT_Overshoot <small style="color:red">${db.sc.Voutovershoot ? ` (${db.sc.Voutovershoot})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Voutovershoot}</label>
                   <input type="text" id="Voutovershoot" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> mV</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">VOUT_Undershoot</label><br/>
+                  <label for="columnid" class="form-label-sm">VOUT_Undershoot <small style="color:red">${db.sc.Voutundershoot ? ` (${db.sc.Voutundershoot})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Voutundershoot}</label>
                   <input type="text" id="Voutundershoot" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> mV</label>
                 </div>
                 <div class="col">
-                  <label for="columnid" class="form-label-sm">EFF.estimate</label><br/>
+                  <label for="columnid" class="form-label-sm">EFF.estimate <small style="color:red">${db.sc.Effestimate ? ` (${db.sc.Effestimate})`:``}</small></label><br/>
                   <label for="columnid" class="form-label VAL">${!sf? "":sf.Effestimate}</label>
                   <input type="text" id="Effestimate" class="form-control-sm" hidden/>
                   <label for="columnid" class="form-label-sm"> %</label>

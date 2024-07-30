@@ -90,6 +90,8 @@ $(`#send`).on(`click`,function(){
     //cngdb("sf",data);
     if(x){
       dbMemo = data;
+      $($(`#formlist td`).filter((i,x)=>$(x).html() == $(`#cPowerRail`).html())[0]).parent().click();
+      $(`.btn-close`).click()
       alert(x);
     }else{
       alert(msg);
